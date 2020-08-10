@@ -24,21 +24,22 @@ export const globalStyles = StyleSheet.create({
   btnText: {
     fontSize: 16,
   },
-  userRegistrationContainer: {
-    backgroundColor: '#1d7afc',
-    paddingTop: 40,
-    paddingBottom: 60,
-    paddingHorizontal: 26,
-    flex: 1,
-  },
-  userRegistrationCaption: {
-    width: 200,
-    paddingTop: 40,
-  },
   userRegistrationForm: {
     backgroundColor: '#ffffff',
-    paddingTop: 0,
+    paddingTop: 12,
     paddingHorizontal: 26,
     flex: 2,
+  },
+  formGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomColor: '#E3E3E3',
+    borderBottomWidth: 1,
+  },
+  formControl: {
+    padding: 10,
+    color: '#2175FC',
+    fontSize: 18,
+    flex: 1,
   },
 });
