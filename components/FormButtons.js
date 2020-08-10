@@ -2,7 +2,13 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { globalStyles } from '../styles/global';
 
-const FormButtons = ({ topBtnText, bottomBtnText, handleSubmit }) => {
+const FormButtons = ({
+  topBtnText,
+  bottomBtnText,
+  handleSubmit,
+  navigation,
+  navigationLink,
+}) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -18,7 +24,10 @@ const FormButtons = ({ topBtnText, bottomBtnText, handleSubmit }) => {
         <Text style={styles.separatorText}>or</Text>
         <View style={styles.separatorLine}></View>
       </View>
-      <TouchableOpacity style={[globalStyles.btn, styles.bottomBtn]}>
+      <TouchableOpacity
+        style={[globalStyles.btn, styles.bottomBtn]}
+        onPress={() => navigation.navigate(navigationLink)}
+      >
         <Text style={[globalStyles.btnText, styles.bottomBtnText]}>
           {bottomBtnText}
         </Text>
@@ -29,7 +38,7 @@ const FormButtons = ({ topBtnText, bottomBtnText, handleSubmit }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
+    marginTop: 30,
   },
   topBtn: {
     backgroundColor: '#026AFC',
