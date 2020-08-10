@@ -1,10 +1,10 @@
-import { Platform, StatusBar, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export const globalStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#1d7afc',
-    paddingTop: Platform.OS === 'ios' ? '0' : StatusBar.currentHeight,
+    paddingTop: 40,
     paddingBottom: 40,
     paddingHorizontal: 26,
   },
