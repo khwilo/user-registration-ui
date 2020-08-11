@@ -1,17 +1,26 @@
 import React, { useState } from 'react';
 import {
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Feather, FontAwesome5, Octicons } from '@expo/vector-icons';
+import { AntDesign, Feather, FontAwesome5, Octicons } from '@expo/vector-icons';
 import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 import { globalStyles } from '../styles/global';
 import FormButtons from './FormButtons';
 import UserRegistrationHeader from './UserRegistrationHeader';
+
+const LoginSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Email address is required'),
+  password: Yup.string().required('Password is required').min(8),
+});
 
 const UserLogin = ({ navigation }) => {
   const [isPasswordInvisible, setIsPasswordInvisible] = useState(true);
@@ -23,16 +32,28 @@ const UserLogin = ({ navigation }) => {
         navigation={navigation}
       />
       <View style={globalStyles.userRegistrationForm}>
-        <>
+        <ScrollView>
           <Formik
             initialValues={{ email: '', password: '' }}
+            validationSchema={LoginSchema}
             onSubmit={(values) => console.log(values)}
           >
-            {({ handleChange, handleBlur, handleSubmit, values }) => (
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+            }) => (
               <View>
                 <View style={globalStyles.formGroup}>
                   <View>
-                    <FontAwesome5 name='envelope' size={18} color='#AEAEAE' />
+                    {!errors.email && touched.email ? (
+                      <FontAwesome5 name='envelope' size={18} color='#2D77FC' />
+                    ) : (
+                      <FontAwesome5 name='envelope' size={18} color='#AEAEAE' />
+                    )}
                   </View>
                   <TextInput
                     style={globalStyles.formControl}
@@ -42,10 +63,22 @@ const UserLogin = ({ navigation }) => {
                     keyboardType='email-address'
                     placeholder='Email'
                   />
+                  <View>
+                    {!errors.email && touched.email ? (
+                      <AntDesign name='check' size={18} color='#2D77FC' />
+                    ) : null}
+                  </View>
                 </View>
+                {errors.email && touched.email ? (
+                  <Text style={globalStyles.formError}>{errors.email}</Text>
+                ) : null}
                 <View style={globalStyles.formGroup}>
                   <View>
-                    <Feather name='lock' size={18} color='#AEAEAE' />
+                    {!errors.password && touched.password ? (
+                      <Feather name='lock' size={18} color='#2D77FC' />
+                    ) : (
+                      <Feather name='lock' size={18} color='#AEAEAE' />
+                    )}
                   </View>
                   <TextInput
                     style={globalStyles.formControl}
@@ -65,6 +98,10 @@ const UserLogin = ({ navigation }) => {
                     )}
                   </TouchableOpacity>
                 </View>
+                {errors.password && touched.password ? (
+                  <Text style={globalStyles.formError}>{errors.password}</Text>
+                ) : null}
+
                 <Text style={styles.forgotPassword}>Forgot Password?</Text>
 
                 <FormButtons
@@ -77,7 +114,7 @@ const UserLogin = ({ navigation }) => {
               </View>
             )}
           </Formik>
-        </>
+        </ScrollView>
       </View>
     </>
   );

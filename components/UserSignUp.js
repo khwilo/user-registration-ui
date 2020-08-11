@@ -1,11 +1,27 @@
 import React, { useState } from 'react';
-import { TextInput, TouchableOpacity, View } from 'react-native';
-import { Feather, FontAwesome5, Octicons } from '@expo/vector-icons';
+import {
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { AntDesign, Feather, FontAwesome5, Octicons } from '@expo/vector-icons';
 import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 import FormButtons from '../components/FormButtons';
 import UserRegistrationHeader from '../components/UserRegistrationHeader';
 import { globalStyles } from '../styles/global';
+
+const SignupSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(2, 'Name is too short')
+    .max(50, 'Name is too long')
+    .required('Name is required'),
+  email: Yup.string().email('Invalid email').required('Email is required'),
+  password: Yup.string().required('Password is required').min(8),
+});
 
 const UserSignUp = ({ navigation }) => {
   const [isPasswordInvisible, setIsPasswordInvisible] = useState(true);
@@ -17,13 +33,28 @@ const UserSignUp = ({ navigation }) => {
         navigation={navigation}
       />
       <View style={globalStyles.userRegistrationForm}>
-        <>
-          <Formik initialValues={{ name: '', email: '', password: '' }}>
-            {({ handleChange, handleBlur, handleSubmit, values }) => (
+        <ScrollView>
+          <Formik
+            initialValues={{ name: '', email: '', password: '' }}
+            validationSchema={SignupSchema}
+            onSubmit={(values) => console.log(values)}
+          >
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+            }) => (
               <View>
                 <View style={globalStyles.formGroup}>
                   <View>
-                    <FontAwesome5 name='user' size={18} color='#AEAEAE' />
+                    {!errors.name && touched.name ? (
+                      <FontAwesome5 name='user' size={18} color='#2D77FC' />
+                    ) : (
+                      <FontAwesome5 name='user' size={18} color='#AEAEAE' />
+                    )}
                   </View>
                   <TextInput
                     style={globalStyles.formControl}
@@ -32,10 +63,21 @@ const UserSignUp = ({ navigation }) => {
                     value={values.name}
                     placeholder='Name'
                   />
+                  {!errors.name && touched.name ? (
+                    <AntDesign name='check' size={18} color='#2D77FC' />
+                  ) : null}
                 </View>
+                {errors.name && touched.name ? (
+                  <Text style={globalStyles.formError}>{errors.name}</Text>
+                ) : null}
+
                 <View style={globalStyles.formGroup}>
                   <View>
-                    <FontAwesome5 name='envelope' size={18} color='#AEAEAE' />
+                    {!errors.email && touched.email ? (
+                      <FontAwesome5 name='envelope' size={18} color='#2D77FC' />
+                    ) : (
+                      <FontAwesome5 name='envelope' size={18} color='#AEAEAE' />
+                    )}
                   </View>
                   <TextInput
                     style={globalStyles.formControl}
@@ -45,10 +87,21 @@ const UserSignUp = ({ navigation }) => {
                     keyboardType='email-address'
                     placeholder='Email'
                   />
+                  {!errors.email && touched.email ? (
+                    <AntDesign name='check' size={18} color='#2D77FC' />
+                  ) : null}
                 </View>
+                {errors.email && touched.email ? (
+                  <Text style={globalStyles.formError}>{errors.email}</Text>
+                ) : null}
+
                 <View style={globalStyles.formGroup}>
                   <View>
-                    <Feather name='lock' size={18} color='#AEAEAE' />
+                    {!errors.password && touched.password ? (
+                      <Feather name='lock' size={18} color='#2D77FC' />
+                    ) : (
+                      <Feather name='lock' size={18} color='#AEAEAE' />
+                    )}
                   </View>
                   <TextInput
                     style={globalStyles.formControl}
@@ -68,6 +121,9 @@ const UserSignUp = ({ navigation }) => {
                     )}
                   </TouchableOpacity>
                 </View>
+                {errors.password && touched.password ? (
+                  <Text style={globalStyles.formError}>{errors.password}</Text>
+                ) : null}
 
                 <FormButtons
                   topBtnText='Sign Up'
@@ -79,7 +135,7 @@ const UserSignUp = ({ navigation }) => {
               </View>
             )}
           </Formik>
-        </>
+        </ScrollView>
       </View>
     </>
   );

@@ -27,6 +27,7 @@ export const globalStyles = StyleSheet.create({
   userRegistrationForm: {
     backgroundColor: '#ffffff',
     paddingTop: 12,
+    paddingBottom: 10,
     paddingHorizontal: 26,
     flex: 2,
   },
@@ -41,5 +42,8 @@ export const globalStyles = StyleSheet.create({
     color: '#2175FC',
     fontSize: 18,
     flex: 1,
+  },
+  formError: {
+    color: 'crimson',
   },
 });

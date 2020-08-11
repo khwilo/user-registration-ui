@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     paddingBottom: 60,
     paddingHorizontal: 26,
-    flex: 1,
   },
   caption: {
     width: 200,
