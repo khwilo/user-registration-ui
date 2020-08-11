@@ -1,13 +1,21 @@
-import React from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import React, { useState } from 'react';
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { Feather, FontAwesome5, Octicons } from '@expo/vector-icons';
 import { Formik } from 'formik';
 
+import { globalStyles } from '../styles/global';
 import FormButtons from './FormButtons';
 import UserRegistrationHeader from './UserRegistrationHeader';
-import { globalStyles } from '../styles/global';
 
 const UserLogin = ({ navigation }) => {
+  const [isPasswordInvisible, setIsPasswordInvisible] = useState(true);
+
   return (
     <>
       <UserRegistrationHeader
@@ -31,6 +39,7 @@ const UserLogin = ({ navigation }) => {
                     onChangeText={handleChange('email')}
                     onBlur={handleBlur('email')}
                     value={values.email}
+                    keyboardType='email-address'
                     placeholder='Email'
                   />
                 </View>
@@ -43,11 +52,18 @@ const UserLogin = ({ navigation }) => {
                     onChangeText={handleChange('password')}
                     onBlur={handleBlur('password')}
                     value={values.password}
+                    secureTextEntry={isPasswordInvisible}
                     placeholder='Password'
                   />
-                  <View>
-                    <Octicons name='eye-closed' size={18} color='#AEAEAE' />
-                  </View>
+                  <TouchableOpacity
+                    onPress={() => setIsPasswordInvisible(!isPasswordInvisible)}
+                  >
+                    {isPasswordInvisible ? (
+                      <Octicons name='eye-closed' size={18} color='#AEAEAE' />
+                    ) : (
+                      <Octicons name='eye' size={18} color='#AEAEAE' />
+                    )}
+                  </TouchableOpacity>
                 </View>
                 <Text style={styles.forgotPassword}>Forgot Password?</Text>
 

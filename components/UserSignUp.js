@@ -1,5 +1,5 @@
-import React from 'react';
-import { TextInput, View } from 'react-native';
+import React, { useState } from 'react';
+import { TextInput, TouchableOpacity, View } from 'react-native';
 import { Feather, FontAwesome5, Octicons } from '@expo/vector-icons';
 import { Formik } from 'formik';
 
@@ -8,6 +8,8 @@ import UserRegistrationHeader from '../components/UserRegistrationHeader';
 import { globalStyles } from '../styles/global';
 
 const UserSignUp = ({ navigation }) => {
+  const [isPasswordInvisible, setIsPasswordInvisible] = useState(true);
+
   return (
     <>
       <UserRegistrationHeader
@@ -40,6 +42,7 @@ const UserSignUp = ({ navigation }) => {
                     onChangeText={handleChange('email')}
                     onBlur={handleBlur('email')}
                     value={values.email}
+                    keyboardType='email-address'
                     placeholder='Email'
                   />
                 </View>
@@ -52,11 +55,18 @@ const UserSignUp = ({ navigation }) => {
                     onChangeText={handleChange('password')}
                     onBlur={handleBlur('password')}
                     value={values.password}
+                    secureTextEntry={isPasswordInvisible}
                     placeholder='Password'
                   />
-                  <View>
-                    <Octicons name='eye-closed' size={18} color='#AEAEAE' />
-                  </View>
+                  <TouchableOpacity
+                    onPress={() => setIsPasswordInvisible(!isPasswordInvisible)}
+                  >
+                    {isPasswordInvisible ? (
+                      <Octicons name='eye-closed' size={18} color='#AEAEAE' />
+                    ) : (
+                      <Octicons name='eye' size={18} color='#AEAEAE' />
+                    )}
+                  </TouchableOpacity>
                 </View>
 
                 <FormButtons
