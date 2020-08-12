@@ -27,9 +27,10 @@ export const globalStyles = StyleSheet.create({
   userRegistrationForm: {
     backgroundColor: '#ffffff',
     paddingTop: 12,
-    paddingBottom: 10,
+    paddingBottom: 30,
     paddingHorizontal: 26,
-    flex: 2,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
   },
   formGroup: {
     flexDirection: 'row',

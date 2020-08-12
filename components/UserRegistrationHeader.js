@@ -23,6 +23,7 @@ const UserRegistrationHeader = ({ headerText, navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: '#1d7afc',
     paddingTop: 40,
     paddingBottom: 60,

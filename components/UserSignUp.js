@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  StyleSheet,
 } from 'react-native';
 import { AntDesign, Feather, FontAwesome5, Octicons } from '@expo/vector-icons';
 import { Formik } from 'formik';
@@ -27,7 +28,7 @@ const UserSignUp = ({ navigation }) => {
   const [isPasswordInvisible, setIsPasswordInvisible] = useState(true);
 
   return (
-    <>
+    <View style={styles.container}>
       <UserRegistrationHeader
         headerText='Create Account'
         navigation={navigation}
@@ -137,8 +138,14 @@ const UserSignUp = ({ navigation }) => {
           </Formik>
         </ScrollView>
       </View>
-    </>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default UserSignUp;

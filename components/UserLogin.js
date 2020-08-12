@@ -26,7 +26,7 @@ const UserLogin = ({ navigation }) => {
   const [isPasswordInvisible, setIsPasswordInvisible] = useState(true);
 
   return (
-    <>
+    <View style={styles.container}>
       <UserRegistrationHeader
         headerText='Welcome Back'
         navigation={navigation}
@@ -116,11 +116,14 @@ const UserLogin = ({ navigation }) => {
           </Formik>
         </ScrollView>
       </View>
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   forgotPassword: {
     alignSelf: 'flex-end',
     marginTop: 10,
