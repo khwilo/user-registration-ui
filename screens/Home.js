@@ -11,11 +11,7 @@ import { globalStyles } from '../styles/global';
 const Home = ({ navigation }) => {
   return (
     <>
-      <StatusBar
-        translucent
-        backgroundColor='transparent'
-        barStyle='light-content'
-      />
+      <StatusBar hidden={true} />
       <View style={globalStyles.container}>
         <View style={styles.homeContent}>
           <Text style={[globalStyles.textContent, styles.textLogo]}>
